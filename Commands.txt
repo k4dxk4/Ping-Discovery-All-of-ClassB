@@ -1,0 +1,11 @@
+#Windows command-line
+#First octet is hard-coded, second octet is identified by %k, third octet is %j, and the fourth by %i (this octet excludes values 0 and 255)
+
+#Ping (once) each IP address from 192.168.0.0-192.168.255.254 (~52hr runtime)
+FOR /L %j IN (0,1,255) DO FOR /L %i IN (1,1,254) DO ping -n 1 192.168.%j.%i | FIND /i "Reply" >> 192.168.x.x.txt
+
+#Ping (once) each IP address from 172.16.0.0-172.31.255.254 (~780hr runtime)
+FOR /L %k IN (16,1,31) DO FOR /L %j IN (0,1,255) DO FOR /L %i IN (1,1,254) DO ping -n 1 172.%k.%j.%i | FIND /i "Reply" >> 172.x.x.x.txt
+
+#Ping (once) each IP address from 10.16.0.0-10.255.255.254 (~552.5day runtime)
+FOR /L %k IN (0,1,255) DO FOR /L %j IN (0,1,255) DO FOR /L %i IN (1,1,254) DO ping -n 1 10.%k.%j.%i | FIND /i "Reply" >> 10.x.x.x.txt
